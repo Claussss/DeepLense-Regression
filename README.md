@@ -23,13 +23,13 @@ Next,you need to intall **pipenv** unless you already have it installed
 ```bush
 pip install pipenv
 ```
-Create a new virtual environment
-```bash
-pipenv shell
-```
 Install all the dependencies for the project
 ```bash
 pipenv install --dev
+```
+Activate the project's virtualenv
+```bash
+pipenv shell
 ```
 ## Usage
 
