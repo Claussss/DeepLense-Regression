@@ -7,7 +7,7 @@ A FastAI-based tool for performing regression on strong lensing images to predic
 This is a Google Summer of Code (GSoC) 2021 project.
 
 ## Project Description
-The goal of the project is to apply deep regression techniques to explore properties of dark matter. We approximated the mass density of vortex substructure of dark matter condensates on simulated strong lensing images. The images are generated with PyAutoLense.
+The goal of the project is to apply deep regression techniques to explore the properties of dark matter. We approximated the mass density of vortex substructure of dark matter condensates on simulated strong lensing images. The images are generated with PyAutoLense.
 
 You can find more information about the project in this [blog post](httos://myBlogpost).
 
