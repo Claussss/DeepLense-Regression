@@ -54,6 +54,7 @@ The weights can be found [here](https://drive.google.com/drive/folders/1NPf7Mui5
 [Example notebook](https://github.com/Claussss/DeepLense-Regression/blob/main/example_notebook.ipynb)
 
 ### Training
+The script takes path to images and labels as inputs and outputs trained weights for xResnetHybrid in the output directory. 
 ```bash
 python train.py --path_to_images '/images.npy' 
                 --path_to_labels '/labels.npy'
@@ -75,6 +76,7 @@ You can optionally add *--mmap_mode* flag.
 | mmap_mode | Use the flag if you cannot fit the whole dataset in the RAM |
 
 ### Inference
+The script takes path to images and outputs predicted mass densities as a .npy file in the output directory. 
 ```bash
 python inference.py --path_to_images '/images.npy' 
                        --path_to_weights '/weights.pth'
