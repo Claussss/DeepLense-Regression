@@ -90,3 +90,34 @@ You can optionally add *--mmap_mode* flag.
 | path_to_weights | The path to a .pth file with trained weights for XResnetHybrid101 |
 | output_dir | The directory where the model will output predicted mass densities in a .npy file |
 | mmap_mode | Use the flag if you cannot fit the whole dataset in the RAM |
+## Cite
+The regression pipeline was inspired by this work.
+```
+@misc{2009.12318,
+Author = {John F. Wu and J. E. G. Peek},
+Title = {Predicting galaxy spectra from images with hybrid convolutional neural networks},
+Year = {2020},
+Eprint = {arXiv:2009.12318},
+}
+```
+This project is based on the following papers that study the concept of dark matter by using novel machine learning techniques.
+```
+@article{alexander2020decoding,
+  title={Decoding Dark Matter Substructure without Supervision},
+  author={Alexander, Stephon and Gleyzer, Sergei and Parul, Hanna and Reddy, Pranath and Toomey, Michael W and Usai, Emanuele and Von Klar, Ryker},
+  journal={arXiv preprint arXiv:2008.12731},
+  year={2020}
+}
+```
+```
+@article{alexander2020deep,
+  title={Deep Learning the Morphology of Dark Matter Substructure},
+  author={Alexander, Stephon and Gleyzer, Sergei and McDonough, Evan and Toomey, Michael W and Usai, Emanuele},
+  journal={The Astrophysical Journal},
+  volume={893},
+  number={1},
+  pages={15},
+  year={2020},
+  publisher={IOP Publishing}
+}
+```
