@@ -17,19 +17,22 @@ def main(path_to_images,path_to_labels,output_dir,batch_size,mmap_mode,num_of_ep
     # Path to the dataset
     path_to_images = path_to_images
     path_to_masses = path_to_labels
+    image_shape = (150, 150)
+    # Number of images
+    images_num = 28000
     # Load the dataset
-    images = np.load(path_to_images,mmap_mode='r' if mmap_mode else None).astype('float32')
-    images = images.reshape(-1,1,150,150)
-    labels = np.load(path_to_masses,mmap_mode='r' if mmap_mode else None).astype('float32')
-    labels = labels.reshape(-1,1)
-    # Calculate the stats of the dataset to standardize it
-    IMAGES_MEAN, IMAGES_STD = images.mean(), images.std()
-    LABELS_MEAN, LABELS_STD = labels.mean(), labels.std()
+    # Memmap loads images to RAM only when they are used
+    images = np.memmap(path_to_images,
+                       dtype='uint16',
+                       mode='r',
+                       shape=(images_num,*images_num))
 
-    images = standardize(images,IMAGES_STD,IMAGES_MEAN)
-    labels = standardize(labels,LABELS_STD,LABELS_MEAN)
+    labels = np.memmap(path_to_masses,
+                       dtype='float32',
+                       mode='r',
+                       shape=(images_num,1))
+
     # Split the dataset into train, valid, test subdatasets
-    np.random.seed(234)
     num_of_images = labels.shape[0]
     # 90% for train
     # 10% for valid
@@ -40,12 +43,12 @@ def main(path_to_images,path_to_labels,output_dir,batch_size,mmap_mode,num_of_ep
     valid_indx = permutated_indx[max_indx_of_train_images:max_indx_of_valid_images]
     # Define transforms
     base_image_transforms = [
-        transforms.Resize(150)
+        transforms.Resize(image_shape)
     ]
     rotation_image_transofrms = [
         transforms.RandomVerticalFlip(),
         transforms.RandomHorizontalFlip(),
-        transforms.RandomRotation(degrees=(0,360))
+        transforms.RandomRotation(degrees=(0, 360))
     ]
     # Crete datasets
     train_dataset = RegressionNumpyArrayDataset(images, labels, train_indx, transforms.Compose(base_image_transforms+rotation_image_transofrms))
@@ -58,7 +61,7 @@ def main(path_to_images,path_to_labels,output_dir,batch_size,mmap_mode,num_of_ep
     torch.manual_seed(50)
     # N_out is the number of output neurons in the last linear layer.
     # C_in is the number of channels in the input images.
-    model = xresnet_hybrid101(n_out=1, sa=True, act_cls=Mish_layer, c_in=1,device=device)
+    model = xresnet_hybrid101(n_out=1, sa=True, act_cls=Mish_layer, c_in=1, device=device)
     # Create learner
     learn = Learner(
         dls, 
@@ -72,7 +75,7 @@ def main(path_to_images,path_to_labels,output_dir,batch_size,mmap_mode,num_of_ep
     num_of_epochs = num_of_epochs
     lr = lr
     learn.fit_one_cycle(num_of_epochs,lr,cbs=[
-       SaveModelCallback(monitor='mae_loss_wgtd',fname='best_model')])
+       SaveModelCallback(monitor='mae_loss_wgtd',fname='best_model', with_opt=True)])
 
 
 if __name__ == '__main__':

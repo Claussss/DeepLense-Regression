@@ -18,17 +18,22 @@ def main(path_to_images,path_to_weights,output_dir,mmap_mode):
     # Path to the dataset
     path_to_images = path_to_images
     # Load the dataset
-    images = np.load(path_to_images,mmap_mode='r' if mmap_mode else None).astype('float32')
-    images = images.reshape(-1,1,150,150)
-    # Calculate the stats of the dataset to standardize it
-    IMAGES_MEAN, IMAGES_STD = images.mean(), images.std()
-    images = standardize(images,IMAGES_STD,IMAGES_MEAN)
+    image_shape = (150, 150)
+    # Number of images
+    images_num = 1000
+    # Load the dataset
+    # Memmap loads images to RAM only when they are used
+    images = np.memmap(path_to_images,
+                       dtype='uint16',
+                       mode='r',
+                       shape=(images_num, *images_num))
+
+    images = images.reshape(-1,1, *image_shape)
     # Define transforms
-    resize_transf =  transforms.Resize(150)
+    resize_transf =  transforms.Resize(images_num)
     # Create dataloader
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     # Create model
-    torch.manual_seed(50)
     # N_out is the number of output neurons in the last linear layer.
     # C_in is the number of channels in the input images.
     model = xresnet_hybrid101(n_out=1, sa=True, act_cls=Mish_layer, c_in=1,device=device)
@@ -42,7 +47,7 @@ def main(path_to_images,path_to_weights,output_dir,mmap_mode):
     with torch.no_grad():
         predictions = []
         for image in tqdm(images):
-            image_tensor = resize_transf(torch.tensor(image,dtype=torch.float)).reshape(1,1,150,150).to(device)
+            image_tensor = resize_transf(torch.tensor(image,dtype=torch.float)).reshape(1,1,*image_shape).to(device)
             predictions.append(model(image_tensor).cpu().detach().numpy())
 
     predictions = np.concatenate(predictions,axis=0)
