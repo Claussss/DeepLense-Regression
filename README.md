@@ -4,7 +4,7 @@
 
 A FastAI-based tool for performing regression on strong lensing images to predict axion mass density of galaxies.
 
-This is a Google Summer of Code (GSoC) 2021 project.
+This is a Google Summer of Code (GSoC) 2021 / 2022 project.
 
 ## Project Description
 The goal of the project is to apply deep regression techniques to explore the properties of dark matter. We approximated the mass density of vortex substructure of dark matter condensates on simulated strong lensing images. The images are generated with PyAutoLense.
@@ -43,6 +43,23 @@ Images are stored in a .npy file with the following dimensions: *(250000,1,150,
 Labels are stored in a separate .npy file and have the following dimensions: *(250000,1)*.
 
 You can find the dataset [here](https://drive.google.com/drive/folders/1NPf7Mui5Qt_vVm5wtlNq17vKnto-Nqkc?usp=sharing).
+
+Create a single .npy file from multiple .npy files where every file contains an image and the correponding mass, 
+please run 
+
+```bash
+python ./data/preprocess_dataset.py --path_to_images '/path_to_files' 
+                --result_path '/result_dir'   
+```
+
+
+| Argument       |                                                                           Description                                                                           |
+|:---------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| path_to_images |                                                   The path to a directory where a multiple .npy files stored                                                    |
+| result_path    |                                              The path to a directory where a final single .npy file will be stored                                              |
+
+
+preprocess_data.py located in ./data
 ### Weights
 We trained xResnetHybrid101 on the given dataset with the following parameters:
 * batch size=64
@@ -90,6 +107,30 @@ You can optionally add *--mmap_mode* flag.
 | path_to_weights | The path to a .pth file with trained weights for XResnetHybrid101 |
 | output_dir | The directory where the model will output predicted mass densities in a .npy file |
 | mmap_mode | Use the flag if you cannot fit the whole dataset in the RAM |
+
+## Experiments GSoC 2022
+
+
+| Hyperparameter |                            Value                            |
+|:---------------|:-----------------------------------------------------------:|
+| lr             |                            3e-3                             |
+| batch_size     |                             64                              |
+| epochs         |                             300                             |
+
+In the following table, Model I, Model II, and Model III represent datasets which the model was trained/tested on. 
+
+Every value in the table is MAE of the corresponding NN architecture on the corresponding test dataset.
+
+| NN Architecture | Model I | Model II | Model III |
+|:----------------|:-------:|:--------:|:---------:|
+| ResNet18Hybrid  | 0.2737  |  0.2209  |  0.1262   |
+
+### Plots
+
+| NN Architecture |                           Model I                           |                          Model II                           |                          Model III                          |
+|:----------------|:-----------------------------------------------------------:|:-----------------------------------------------------------:|:-----------------------------------------------------------:|
+| ResNet18Hybrid  | ![model 1](imgs/model_1_ResnetHybrid_0_2737_epochs_300.png) | ![model 2](imgs/model_2_ResnetHybrid_0_2209_epochs_300.png) | ![model 3](imgs/model_3_ResnetHybrid_0_1262_epochs_300.png) |
+
 ## Cite
 The regression pipeline was inspired by this work.
 ```
