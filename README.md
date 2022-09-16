@@ -136,14 +136,14 @@ Every value in the table is MAE of the corresponding NN architecture on the corr
 | NN Architecture | Model I | Model II | Model III | Train time (hours) <br/>Model III |
 |:----------------|:-------:|:--------:|:---------:|:---------------------------------:|
 | ResNet18Hybrid  | 0.2737  |  0.2209  |  0.1262   |                2.6                |
-| CmtTi           | 0.2743  |    -     |  0.1442   |                7.2                |
+| CmtTi           | 0.2743  |  0.2393  |  0.1442   |                7.2                |
 
 ### Plots
 
 | NN Architecture |                                                     Model I                                                      |                          Model II                           |                          Model III                          |
 |:----------------|:----------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------:|:-----------------------------------------------------------:|
 | ResNet18Hybrid  |                           ![model 1](imgs/model_1_ResnetHybrid_0_2737_epochs_300.png)                            | ![model 2](imgs/model_2_ResnetHybrid_0_2209_epochs_300.png) | ![model 3](imgs/model_3_ResnetHybrid_0_1262_epochs_300.png) |
-| CmtTi   |                           ![model 1](imgs/model_1_CMT_TI_0_2743_epochs_300.png)                            |                              -                              |    ![model 3](imgs/model_3_CMT_TI_0_1442_epochs_300.png)    |
+| CmtTi   |                           ![model 1](imgs/model_1_CMT_TI_0_2743_epochs_300.png)                            | ![model 2](imgs/model_2_CMT_TI_0_2393_epochs_300.png) |    ![model 3](imgs/model_3_CMT_TI_0_1442_epochs_300.png)    |
 
 ## Cite
 The regression pipeline was inspired by this work.
