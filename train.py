@@ -13,17 +13,15 @@ from data.custom_datasets import RegressionNumpyArrayDataset
 import argparse
 import numpy as np
 
-def main(path_to_images,path_to_labels,output_dir,batch_size,mmap_mode,num_of_epochs,lr):
+def main(path_to_images,path_to_labels,output_dir,batch_size,mmap_mode,num_of_epochs,lr, image_dtype, image_shape, images_num):
     # Path to the dataset
     path_to_images = path_to_images
     path_to_masses = path_to_labels
-    image_shape = (150, 150)
     # Number of images
-    images_num = 28000
     # Load the dataset
     # Memmap loads images to RAM only when they are used
     images = np.memmap(path_to_images,
-                       dtype='uint16',
+                       dtype=image_dtype,
                        mode='r',
                        shape=(images_num,*images_num))
 
@@ -58,7 +56,6 @@ def main(path_to_images,path_to_labels,output_dir,batch_size,mmap_mode,num_of_ep
     batch_size = batch_size
     dls = DataLoaders.from_dsets(train_dataset,valid_dataset,batch_size=batch_size, device=device, num_workers=2)
     # Create model
-    torch.manual_seed(50)
     # N_out is the number of output neurons in the last linear layer.
     # C_in is the number of channels in the input images.
     model = xresnet_hybrid101(n_out=1, sa=True, act_cls=Mish_layer, c_in=1, device=device)
@@ -82,8 +79,14 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Train resnet101 to approximate the mass density of strong lensing images.')
 
+    parser.add_argument('--image_shape', nargs='+', required=True,
+                        help='Shape of a single image from the dataset.')
+    parser.add_argument('--image_dtype', required=True, default='uint16',
+                        help='Dtype of a signel image from the dataset.')
+    parser.add_argument('--files_number', required=True,
+                        help='The number of files in the dataset.',type=int)
     parser.add_argument('--path_to_images', required=True,type=file_path,
-                        help='The path to a .npy file with images. It has to have the following dimensions: (num_of_elements,1,150,150).')
+                        help='The path to a .npy file with images. It has to have the following dimensions: (num_of_elements,1,*image_shape).')
     parser.add_argument('--path_to_labels', required=True,type=file_path,
                     help='The path to a .npy file with density masses. It has to have the following dimensions: (num_of_elements,1).')
     parser.add_argument('--output_dir', required=True,type=dir_path,
@@ -105,5 +108,8 @@ if __name__ == '__main__':
         batch_size=args.batch_size,
         mmap_mode=args.mmap_mode,
         num_of_epochs=args.num_of_epochs,
-        lr=args.lr)
+        lr=args.lr,
+        images_num=args.files_number,
+        image_dtype= args.image_dtype,
+        image_shape=args.image_shape)
         

@@ -14,19 +14,17 @@ import numpy as np
 from tqdm import tqdm
 
 
-def main(path_to_images,path_to_weights,output_dir,mmap_mode):
+def main(path_to_images,path_to_weights,output_dir,mmap_mode, image_dtype, image_shape, images_num):
     # Path to the dataset
     path_to_images = path_to_images
     # Load the dataset
-    image_shape = (150, 150)
     # Number of images
-    images_num = 1000
     # Load the dataset
     # Memmap loads images to RAM only when they are used
     images = np.memmap(path_to_images,
-                       dtype='uint16',
+                       dtype=image_dtype,
                        mode='r',
-                       shape=(images_num, *images_num))
+                       shape=(images_num, 1, *image_shape))
 
     images = images.reshape(-1,1, *image_shape)
     # Define transforms
@@ -61,6 +59,12 @@ if __name__ == '__main__':
     
     parser = argparse.ArgumentParser(description='Predict density masses for the dataset by using trained resnet101.')
 
+    parser.add_argument('--image_shape', nargs='+', required=True,
+                        help='Shape of a single image from the dataset.')
+    parser.add_argument('--image_dtype', required=True, default='uint16',
+                        help='Dtype of a signel image from the dataset.')
+    parser.add_argument('--files_number', required=True,
+                        help='The number of files in the dataset.',type=int)
     parser.add_argument('--path_to_images', required=True,type=file_path,
                         help='The path to a .npy file with images. It has to have the following dimensions: (num_of_elements,1,150,150).')
     parser.add_argument('--path_to_weights', required=True,type=file_path,
@@ -75,4 +79,7 @@ if __name__ == '__main__':
     main(path_to_images=args.path_to_images,
         path_to_weights=args.path_to_weights,
         output_dir=args.output_dir,
-        mmap_mode=args.mmap_mode)
+        mmap_mode=args.mmap_mode,
+        images_num=args.files_number,
+        image_dtype= args.image_dtype,
+        image_shape=args.image_shape)

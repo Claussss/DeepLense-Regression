@@ -78,26 +78,35 @@ python train.py --path_to_images '/images.npy'
                 --output_dir 'output_dir/'
                 --batch_size 64
                 --num_of_epochs 120
-                --lr 1e-2       
+                --lr 1e-2
+                --image_shape 150 150
+                --image_dtype 'uint16'
+                --files_number 28000       
 ```
 You can optionally add *--mmap_mode* flag.
 
-| Argument | Description |
-| :---         |     :---:      |
+| Argument       |                                                Description                                                |
+|:---------------|:---------------------------------------------------------------------------------------------------------:|
 | path_to_images | The path to a .npy file with images. It has to have the following dimensions: (num_of_elements,1,150,150) |
 | path_to_labels | The path to a .npy file with density masses. It has to have the following dimensions: (num_of_elements,1) |
-| output_dir | The directory where the best_model.pth (weights of the model) file will be stored after training |
-| batch_size | Batch siz |
-| num_of_epochs | Number of epochs |
-| lr | Learning rate |
-| mmap_mode | Use the flag if you cannot fit the whole dataset in the RAM |
+| output_dir     |     The directory where the best_model.pth (weights of the model) file will be stored after training      |
+| batch_size     |                                                 Batch siz                                                 |
+| num_of_epochs  |                                             Number of epochs                                              |
+| lr             |                                               Learning rate                                               |
+| files_number   |                                     Number of samples in the dataset                                      |
+| image_dtype    |                               Data type of a single image from the dataset                                |
+| image_shape    |                                  Shape of a singe image from the dataset                                  |
+| mmap_mode      |                        Use the flag if you cannot fit the whole dataset in the RAM                        |
 
 ### Inference
 The script takes path to images and outputs predicted mass densities as a .npy file in the output directory. 
 ```bash
 python inference.py --path_to_images '/images.npy' 
                        --path_to_weights '/weights.pth'
-                       --output_dir 'output_dir/'       
+                       --output_dir 'output_dir/' 
+                       --image_shape 150 150
+                       --image_dtype 'uint16'
+                       --files_number 1000      
 ```
 You can optionally add *--mmap_mode* flag.
 
@@ -107,6 +116,9 @@ You can optionally add *--mmap_mode* flag.
 | path_to_weights | The path to a .pth file with trained weights for XResnetHybrid101 |
 | output_dir | The directory where the model will output predicted mass densities in a .npy file |
 | mmap_mode | Use the flag if you cannot fit the whole dataset in the RAM |
+| files_number   |                                     Number of samples in the dataset                                      |
+| image_dtype    |                               Data type of a single image from the dataset                                |
+| image_shape    |                                  Shape of a singe image from the dataset                                  |
 
 ## Experiments GSoC 2022
 
