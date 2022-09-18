@@ -122,28 +122,45 @@ You can optionally add *--mmap_mode* flag.
 
 ## Experiments GSoC 2022
 
-
-| Hyperparameter |                            Value                            |
-|:---------------|:-----------------------------------------------------------:|
-| lr             |                            3e-3                             |
-| batch_size     |                             64                              |
-| epochs         |                             300                             |
+### NN Architectures
 
 In the following table, Model I, Model II, and Model III represent datasets which the model was trained/tested on. 
 
-Every value in the table is MAE of the corresponding NN architecture on the corresponding test dataset.
+Every value in the table is MAE of the corresponding NN architecture on the corresponding test dataset. Every architecture was trained with **batch_size=64**, **lr=3e-3** for **300 epochs**.
 
 | NN Architecture | Model I | Model II | Model III | Train time (hours) <br/>Model III |
 |:----------------|:-------:|:--------:|:---------:|:---------------------------------:|
 | ResNet18Hybrid  | 0.2737  |  0.2209  |  0.1262   |                2.6                |
 | CmtTi           | 0.2743  |  0.2393  |  0.1442   |                7.2                |
 
-### Plots
 
 | NN Architecture |                                                     Model I                                                      |                          Model II                           |                          Model III                          |
 |:----------------|:----------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------:|:-----------------------------------------------------------:|
 | ResNet18Hybrid  |                           ![model 1](imgs/model_1_ResnetHybrid_0_2737_epochs_300.png)                            | ![model 2](imgs/model_2_ResnetHybrid_0_2209_epochs_300.png) | ![model 3](imgs/model_3_ResnetHybrid_0_1262_epochs_300.png) |
 | CmtTi   |                           ![model 1](imgs/model_1_CMT_TI_0_2743_epochs_300.png)                            | ![model 2](imgs/model_2_CMT_TI_0_2393_epochs_300.png) |    ![model 3](imgs/model_3_CMT_TI_0_1442_epochs_300.png)    |
+
+
+### Training Hyperparameters
+
+The table contains results of **XResnetHybrid18** trained with **batch_size=64**, **lr=8e-3** on the **Model I** dataset for **50 epochs**.
+
+
+| Weight Decay  | Momentum range | MAE |
+|:----------------|:-------:|:--------:
+| None  | (0.95,0.85) | 0.330613*|
+| 0.1           | (0.95,0.85)| 0.550189|
+| 0.01  | (0.95,0.85) |0.342670 |
+| 0.001           | (0.95,0.85)| 0.337203|
+| None  | (0.85,0.75) | 0.338351|
+| 0.1           | (0.85,0.75)| 0.551220|
+| 0.01  | (0.85,0.75)| 0.342421|
+| 0.001           | (0.85,0.75)| 0.337694|
+| None  | (0.75,0.65) | 0.434603 |
+| 0.1           | (0.75,0.65) | 0.704964|
+| 0.01  | (0.75,0.65) |0.472101  |
+| 0.001           | (0.75,0.65) |0.472942  |
+
+### Loss Function
 
 ## Cite
 The regression pipeline was inspired by this work.
