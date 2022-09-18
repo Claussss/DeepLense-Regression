@@ -130,7 +130,7 @@ Every value in the table is MAE of the corresponding NN architecture on the corr
 
 | NN Architecture | Model I | Model II | Model III | Train time (hours) <br/>Model III |
 |:----------------|:-------:|:--------:|:---------:|:---------------------------------:|
-| ResNet18Hybrid  | 0.2737  |  0.2209  |  0.1262   |                2.6                |
+| XResNet18Hybrid  | 0.2737  |  0.2209  |  0.1262   |                2.6                |
 | CmtTi           | 0.2743  |  0.2393  |  0.1442   |                7.2                |
 
 
