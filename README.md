@@ -162,6 +162,15 @@ The table contains results of **XResnetHybrid18** trained with **batch_size=64**
 
 ### Loss Function
 
+The table contains results of **XResnetHybrid18** trained with **batch_size=64**, **lr=8e-3**, **wd=None**, **moms=(0.95,0.85)** on the **Model I** dataset for **50 epochs**.
+
+| Loss function | MAE |
+|:----------------|:-------:|
+| RMSE  | 0.330613  | 
+| MSE  |  0.332601 | 
+| MAE  | 0.335310  | 
+| SMOOTHL1LOSS    | 0.330053* |
+
 ## Cite
 The regression pipeline was inspired by this work.
 ```
