@@ -169,7 +169,7 @@ The table contains results of **XResnetHybrid18** trained with **batch_size=64**
 | RMSE  | 0.330613  | 
 | MSE  |  0.332601 | 
 | MAE  | 0.335310  | 
-| SMOOTHL1LOSS    | 0.330053* |
+| SmoothL1Loss   | 0.330053* |
 
 ## Cite
 The regression pipeline was inspired by this work.
