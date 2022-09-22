@@ -126,7 +126,7 @@ You can optionally add *--mmap_mode* flag.
 
 In the following table, Model I, Model II, and Model III represent datasets which the model was trained/tested on. 
 
-Every value in the table is MAE of the corresponding NN architecture on the corresponding test dataset. Every architecture was trained with **batch_size=64**, **lr=3e-3** for **300 epochs**.
+Every value in the table is MAE of the corresponding NN architecture on the corresponding test dataset. Every architecture was trained with **batch_size=64**, **lr=1e-3** for **200 epochs**.
 
 | NN Architecture | Model I | Model II | Model III | Train time (hours) <br/>Model III |
 |:----------------|:-------:|:--------:|:---------:|:---------------------------------:|
@@ -162,7 +162,7 @@ The table contains results of **XResnetHybrid18** trained with **batch_size=64**
 
 ### Loss Function
 
-The table contains results of **XResnetHybrid18** trained with **batch_size=64**, **lr=8e-3**, **wd=None**, **moms=(0.95,0.85)** on the **Model I** dataset for **50 epochs**.
+The table contains results of **XResnetHybrid18** trained with **batch_size=64**, **lr=1e-3**, **wd=None**, **moms=(0.95,0.85)** on the **Model I** dataset for **50 epochs**.
 
 | Loss function | MAE |
 |:----------------|:-------:|
