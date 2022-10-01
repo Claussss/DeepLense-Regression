@@ -9,7 +9,7 @@ This is a Google Summer of Code (GSoC) 2021 / 2022 project.
 ## Project Description
 The goal of the project is to apply deep regression techniques to explore the properties of dark matter. We approximated the mass density of vortex substructure of dark matter condensates on simulated strong lensing images. The images are generated with PyAutoLense.
 
-You can find more information about the project in this [blog post](https://medium.com/@yuriihalyc/gsoc-2021-with-ml4sci-deep-regression-for-exploring-dark-matter-32691c46adfa).
+You can find more information about the project in the following blog posts: [GSOC 2021](https://medium.com/@yuriihalyc/gsoc-2021-with-ml4sci-deep-regression-for-exploring-dark-matter-32691c46adfa), [GSOC 2022](https://medium.com/@yuriihalyc/gsoc-2022-with-ml4sci-deep-regression-for-exploring-dark-matter-3f2f1badb60f).
 
 ## Installation
 
